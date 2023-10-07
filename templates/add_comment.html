@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- start hero section -->
+<div class="hero">
+  <div class="about">
+    <h1>Cliff Blog</h1>
+  </div>
+</div>
+
+<div class="content">
+  <div class="column">
+    <div class="col">
+      <div class="about1">
+        <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
+      </div>
+      <div class="image">
+        <img src="{{post.image.url}}" alt="..." width="600px" height="300px">
+      </div>
+      <div class="time1">
+        <p>{{ post.author }} | {{ post.created_on }}</p>
+      </div>
+      <div class="details3">
+        <p>{{ post.body | safe }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="col">
+      <!-- comments -->
+      {% if post.comments.all %}
+        <div class="comm" style="padding:10px 20px;">
+          {% if post.comments.all.count == 1 %}
+          <h2>{{ post.comments.all.count }} comment</h2>
+          {% else %}
+          <h2>{{ post.comments.all.count}} comments</h2>
+          {% endif %}
+        </div>
+        {% for comment in post.comments.all %}
+          <div class="comments" style="padding: 10px 30px;">
+            <p class="font-weight-bold" style="font-weight:bold;">
+              {{ comment.name }}
+              <span class="">
+                {{ comment.created_on }}
+              </span>
+            </p>
+            {{ comment.comment | linebreaks }}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="commen">
+          <h1>No Comments</h1>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="col">
+      <div class="about4">
+        <h1>Leave a comment</h1>
+        <form method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

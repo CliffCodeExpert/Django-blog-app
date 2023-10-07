@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- start hero section -->
+<div class="hero">
+  <div class="about">
+      <h1>Post A Blog</h1>
+  </div>
+</div>
+
+<!-- post blog section -->
+<div class="post1">
+  <div class="post2">
+    <div class="post3">
+      {% if user.is_authenticated %}
+        <h1>Hello {{ user.username }}</h1>
+        <form action="/new_post/" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="POST">
+        </form>
+      {% else %}
+      <p style="color:red;font-weight: bold;">You need to log in to post a blog.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

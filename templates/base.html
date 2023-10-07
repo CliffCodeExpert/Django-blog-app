@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>{% block title %} Awesome blog {% endblock %}</title>
+</head>
+<body>
+   <!--- Header section -->
+   <div class="header">
+    <div class="logo">
+        <a href="{% url 'home' %}">Blog</a>
+    </div>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'sending_gmail' %}">Contact</a></li> 
+           <li><a href="{% url 'new_post' %}">New Post</a></li>    
+        </ul>
+    </div>
+</div>
+
+  {% block content %}
+
+
+  {% endblock %}
+  
+  <div class="footer">
+    <div class="center1">
+    <p>Copyright &copy; 2023 My Website</p>
+    </div>
+  </div>
+
+  <script>
+    hamburger=document.querySelector(".hamburger")
+    hamburger.onclick=function(){
+       navBar=document.querySelector(".navbar")
+       navBar.classList.toggle("active");
+    };
+    window.onscroll = () =>{
+       navBar.classList.remove("active");
+    }
+
+    var header = document.querySelector(".header");
+    var lastScrollTop = 0;
+
+window.addEventListener("scroll", function() {
+  var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  if (currentScroll > lastScrollTop) {
+    header.classList.add("header-bg");
+  } else {
+    header.classList.remove("header-bg");
+  }
+  lastScrollTop = currentScroll;
+});
+    
+</script>
+  </body>
+</html>
